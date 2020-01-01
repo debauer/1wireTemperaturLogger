@@ -1,0 +1,34 @@
+{
+  "sensoren": [
+    {
+      "Name": "fbh_vorlauf",
+      "Beschreibung": "Vorlauf FBH",
+      "Id": "28-01143f8976aa"
+    },
+    {
+      "Name": "fbh_ruecklauf",
+      "Beschreibung": "Ruecklauf FBH",
+      "Id": "28-01143f625baa"
+    },
+    {
+      "Name": "hk_vorlauf",
+      "Beschreibung": "Vorlauf HK",
+      "Id": "28-01143f7d25aa"
+    },
+    {
+      "Name": "hk_ruecklauf",
+      "Beschreibung": "Ruecklauf HK",
+      "Id": "28-01143d2fd7aa"
+    },
+    {
+      "Name": "abgas",
+      "Beschreibung": "Abgas",
+      "Id": "28-01143d5252aa"
+    },
+    {
+      "Name": "warmwasser",
+      "Beschreibung": "Warmwasser",
+      "Id": "28-01143f683aaa"
+    }
+  ]
+}

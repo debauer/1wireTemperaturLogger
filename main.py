@@ -1,35 +1,55 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import os
+import sys
 import time
+from python_json_config import ConfigBuilder
+
+sensor_pfade = ['28-01143f8976aa', '28-01143f625baa', '28-01143f7d25aa', '28-01143d2fd7aa', '28-01143d5252aa',
+                '28-01143f683aaa']
+file_name = 'output.csv'
+
+builder = ConfigBuilder()
+config = builder.parse_config('config.json')
 
 
-sensorPfade = ['28-01143f8976aa','28-01143f625baa','28-01143f7d25aa','28-01143d2fd7aa','28-01143d5252aa','28-01143f683aaa']
-fileName = 'output.csv'
+def fake_lese_sensor(sensor_name):
+    return str(23.3)
 
-def leseSensor(sensorName) :
-	pfad = '/sys/bus/w1/devices/' + sensorName + '/w1_slave'
-	file = open(pfad, 'r')
-	lines = f.readlines()
-	file.close()
-	return lines
+
+def lese_sensor(sensor_name):
+    sensor_pfad = '/sys/bus/w1/devices/' + sensor_name + '/w1_slave'
+    sensor_file = open(sensor_pfad, 'r')
+    lines = sensor_file.readlines()
+    file.close()
+    return str(lines)
+
 
 try:
-    while True :
-    	try:
-	        sensorWerte = []
-			for pfad in sensorPfade:
-				sensorWerte.append( leseSensor(pfad) )
-			if 
-			outputString = time.strftime('%H:%M:%S') + ';'
+    os.mkdir('logs')
+except Exception as e:
+    print(str(e))
 
-			for wert in sensorWerte:
-				outputString = outputString + wert + ';'
+try:
+    while True:
+        try:
+            sensorWerte = []
+            for pfad in sensor_pfade:
+                sensorWerte.append(lese_sensor(pfad))
+            output_string = time.strftime('%Y-%m-%d %H:%M:%S')
 
-			file = open(file, 'a')
-			file.write(outputString)
-			file.close()
-		except (OSError, IOError) as e:
-			print("I/O error({0}): {1}".format(e.errno, e.strerror))
+            for wert in sensorWerte:
+                output_string = output_string + ';' + wert
+
+            print(output_string)
+            output_string = output_string + '\n'
+            file = open('logs/' + time.strftime('%Y%m%d') + '.csv', 'a')
+            file.write(output_string)
+            file.close()
+
+        except (OSError, IOError) as e:
+            print("I/O error({0}): {1}".format(e.errno, e.strerror))
+        time.sleep(1)
 
 except KeyboardInterrupt:
     # Programm wird beendet wenn CTRL+C gedrückt wird.
@@ -38,4 +58,3 @@ except KeyboardInterrupt:
 except Exception as e:
     print(str(e))
     sys.exit(1)
-    
