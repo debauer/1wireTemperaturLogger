@@ -22,6 +22,16 @@ def lese_sensor(sensor_name):
     sensor_file.close()
     return str(lines)
 
+
+def temperatur_auslesen(zeilen):
+    temperatur_string = zeilen[1].find('t=')
+    # Ich überprüfe ob die Temperatur gefunden wurde.
+    if temperatur_string != -1:
+        temperatur_data = zeilen[1][temperatur_string + 2:]
+        return str(float(temperatur_data) / 1000.0)
+    return ''
+
+
 try:
     os.mkdir('logs')
 except Exception as e:
@@ -36,7 +46,7 @@ try:
             output_string = time.strftime('%Y-%m-%d %H:%M:%S')
 
             for wert in sensorWerte:
-                output_string = output_string + ';' + wert
+                output_string = output_string + ';' + temperatur_auslesen(wert)
 
             print(output_string)
             output_string = output_string + '\n'
