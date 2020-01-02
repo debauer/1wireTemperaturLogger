@@ -24,7 +24,6 @@ def lese_sensor(sensor_name):
     file.close()
     return str(lines)
 
-
 try:
     os.mkdir('logs')
 except Exception as e:
@@ -34,8 +33,8 @@ try:
     while True:
         try:
             sensorWerte = []
-            for pfad in sensor_pfade:
-                sensorWerte.append(lese_sensor(pfad))
+            for sensor in config.sensoren:
+                sensorWerte.append(lese_sensor(sensor['Id']))
             output_string = time.strftime('%Y-%m-%d %H:%M:%S')
 
             for wert in sensorWerte:
