@@ -5,8 +5,6 @@ import sys
 import time
 from python_json_config import ConfigBuilder
 
-sensor_pfade = ['28-01143f8976aa', '28-01143f625baa', '28-01143f7d25aa', '28-01143d2fd7aa', '28-01143d5252aa',
-                '28-01143f683aaa']
 file_name = 'output.csv'
 
 builder = ConfigBuilder()
@@ -21,7 +19,7 @@ def lese_sensor(sensor_name):
     sensor_pfad = '/sys/bus/w1/devices/' + sensor_name + '/w1_slave'
     sensor_file = open(sensor_pfad, 'r')
     lines = sensor_file.readlines()
-    file.close()
+    sensor_file.close()
     return str(lines)
 
 try:
@@ -42,9 +40,9 @@ try:
 
             print(output_string)
             output_string = output_string + '\n'
-            file = open('logs/' + time.strftime('%Y%m%d') + '.csv', 'a')
-            file.write(output_string)
-            file.close()
+            log_file = open('logs/' + time.strftime('%Y%m%d') + '.csv', 'a')
+            log_file.write(output_string)
+            log_file.close()
 
         except (OSError, IOError) as e:
             print("I/O error({0}): {1}".format(e.errno, e.strerror))
